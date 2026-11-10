@@ -1,4 +1,4 @@
-# One 45–60 second video
+# Demo recording guide and final selection
 
 Student VS Code/browser review and acceptance were confirmed November 10, 2026.
 
@@ -18,4 +18,4 @@ Open DB Browser for SQLite (already installed on the student’s Mac), choose Op
 
 ## Current recording status — November 10, 2026
 
-The student supplied [the demo video](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s) and confirmed access in a private browser. Playback was also checked by the agent. The player shows 1:25, so the duration requirement remains unmet. A separate 55-second MP4 is ready at evidence/local-video/assignment-4.1-demo-55s.mp4 (local and ignored). It preserves the complete recording at approximately 1.55× speed; replacing the hosted media with this copy would resolve the duration issue. The hosted replacement and Canvas upload have not occurred in this task.
+The student selected [the original demo video](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s), lasting 1:25, and confirmed access in a private browser. Playback was also checked by the agent. The student explicitly chose this recording after reviewing its duration. The report uses this exact Kaltura link; no replacement video is requested. The timing guide above records the original assignment guidance. Canvas upload remains a student step.
