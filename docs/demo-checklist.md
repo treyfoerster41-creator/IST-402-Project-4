@@ -15,3 +15,7 @@ Keep the whole recording under one minute. If reconnection is slow, wait for it 
 ## Finding the saved table
 
 Open DB Browser for SQLite (already installed on the student’s Mac), choose Open Database, and select market.db inside IST 402 → Assignment 4 → backend → data. Select the Browse Data tab, then observations in the table dropdown. Each row is a saved Yahoo update. identity identifies a timestamped quote slot, revision identifies a changed version, source_ms is the provider’s timestamp, and received_ms is the backend’s receipt timestamp (Unix UTC milliseconds). Showing these rows is enough for the brief persistence segment; no edits are needed.
+
+## Current recording status — November 10, 2026
+
+The student supplied [the demo video](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s) and confirmed access in a private browser. Playback was also checked by the agent. The player shows 1:25, so the duration requirement remains unmet. A separate 55-second MP4 is ready at evidence/local-video/assignment-4.1-demo-55s.mp4 (local and ignored). It preserves the complete recording at approximately 1.55× speed; replacing the hosted media with this copy would resolve the duration issue. The hosted replacement and Canvas upload have not occurred in this task.

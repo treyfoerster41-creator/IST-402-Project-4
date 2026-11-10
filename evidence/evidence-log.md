@@ -1,6 +1,6 @@
 # Part 4.1 evidence — November 10, 2026
 
-Technical checks below are **agent-run observations**. Student review is recorded separately from those checks; class demonstration, Canvas submission and video accessibility are not claimed. Local times are America/New_York (EST); JSON timestamps are UTC. Synthetic automated tests use temporary databases; the working database was preserved.
+Technical checks below are **agent-run observations**. Student review and video-access confirmation are recorded separately from those checks; class demonstration and Canvas submission are not claimed. Local times are America/New_York (EST); JSON timestamps are UTC. Synthetic automated tests use temporary databases; the working database was preserved.
 
 ## Curated process trail
 
@@ -32,7 +32,7 @@ Technical checks below are **agent-run observations**. Student review is recorde
 
 Screenshots are snapshots, not the required 30–60 second video. Live data comes from sampled Yahoo quotes; missing first/reset volume is unknown and interval volume is an observed counter difference, not official exchange OHLCV. Replay is accelerated receipt-order playback, not a backtest. Tests use synthetic fixed inputs and do not establish live provider availability. Backend failure tests do not establish behavior of every possible Yahoo outage.
 
-Student VS Code review/browser acceptance was confirmed on November 10, 2026. GitHub publication and an independent checkout check are now complete (details below). Video link/duration/access and Canvas upload remain pending. See [demo checklist](../docs/demo-checklist.md) and [report](../report.md).
+Student VS Code review/browser acceptance was confirmed on November 10, 2026. GitHub publication and an independent checkout check are now complete (details below). The video link and access confirmation are now recorded below. Its 1:25 duration exceeds the required 30–60 seconds. Canvas upload remains pending. See [demo checklist](../docs/demo-checklist.md) and [report](../report.md).
 
 Final check logs: [backend tests](backend-tests.txt), [replay tests](frontend-tests.txt), [production build](frontend-build.txt). Additional regression verifies BTC volume remains unknown rather than assuming counter semantics.
 
@@ -49,3 +49,11 @@ November 10, 2026: pushed reviewed application commit `b8f78450598fa012bca6b7da3
 The independent checkout installed the already-approved locked dependencies. Expected: all tests/build succeed and a clean startup creates its own database. Observed: 12 backend tests, 5 replay tests and production build passed; the backend WebSocket returned AAPL with zero observations and connecting status, and SQLite schema existed. The original working database was untouched. The checkout remained Git-clean after testing. This proves reproducible startup, not a second live Yahoo success.
 
 Evidence: [verification record](clean-checkout-verification.json), [backend](clean-backend-tests.txt), [replay](clean-frontend-tests.txt), [build](clean-frontend-build.txt).
+
+## Student video and access confirmation
+
+November 10, 2026: the student supplied [IST 402 — Assignment 4.1 Demo](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s) and explicitly confirmed that it works in a private browser. An agent browser check also opened the page and started playback without a sign-in prompt; the player displayed **01:25**. This establishes access at verification time, but the recording exceeds the assignment’s 30–60 second requirement.
+
+The corresponding student-provided local recording measured 85.383 seconds. Sampled frames show live AAPL candles/volume and source/receipt ages, symbol switching, recorded replay, a return to live mode, and the SQLite **candles** table with revision/completion fields. This is not a claim that the video shows the observations table’s source and receipt columns; those are documented in the schema, tests and separate live evidence.
+
+A separate 55.023-second MP4 was exported locally by speeding up the complete recording approximately 1.55×, with no footage removed. Native macOS AVFoundation was used without installing packages. Sampled output frames were checked for readable chart/database content. The original recording was preserved. The shortened copy is ignored at evidence/local-video/assignment-4.1-demo-55s.mp4 and has not been verified as the media at the supplied Kaltura link. It is not committed to GitHub.

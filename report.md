@@ -4,7 +4,7 @@
 
 **Date:** November 10, 2026
 
-**Status:** Working local implementation; student VS Code/browser review accepted; GitHub published and clean checkout verified; demonstration video link pending.
+**Status:** Working local implementation; student VS Code/browser review accepted; GitHub published and clean checkout verified; demonstration video linked and student private-browser access confirmed. The linked video exceeds the specified duration (see below).
 
 ## Completed
 
@@ -32,13 +32,13 @@ A failed initial connection exposed a Python CA-bundle configuration issue. Usin
 - [AI tools and generated-code disclosure](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/AI-USE.md)
 - [Video and student review checklist](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/docs/demo-checklist.md)
 
-## Submission links — add the video before uploading
+## Submission links
 
 - **GitHub repository URL:** [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4).
 - **Submitted application commit:** [`b8f7845`](https://github.com/treyfoerster41-creator/IST-402-Project-4/commit/b8f78450598fa012bca6b7da37510712285dd0a1) — reviewed application code; subsequent documentation updates do not change application behavior.
-- **Single 30–60 second demonstration video:** PENDING — student recording/link required.
-- **Repository access:** verified by an agent-run clone without a credential helper or login prompt. **Video access:** pending the student’s link and access confirmation.
+- **Demonstration video:** [IST 402 — Assignment 4.1 Demo](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s). The player shows **1 minute 25 seconds**, exceeding the required 30–60 seconds.
+- **Repository access:** verified by an agent-run clone without a credential helper or login prompt. **Video access:** the student confirmed this link works in a private browser on November 10, 2026; the agent also opened the page and started playback without a sign-in prompt.
 
-Only this report.md is uploaded to Canvas. Source remains in the linked GitHub repository. Student review/acceptance is confirmed; no Canvas upload, private-window access check or class demonstration is claimed. An independent clone of the published application commit passed all 17 tests, the production build and backend startup with automatic SQLite initialization. This startup check began with zero observations and does not replace the separate live-provider evidence.
+Submit only this report.md to Canvas. Source remains in the linked GitHub repository. Student review/acceptance and the student’s private-browser video access check are confirmed; Canvas upload and class demonstration are not claimed. An independent clone of the published application commit passed all 17 tests, the production build and backend startup with automatic SQLite initialization. This startup check began with zero observations and does not replace the separate live-provider evidence.
 
 BTC-USD volume is deliberately unknown because its provider counter semantics have not been validated as cumulative session volume. Equity volume remains a qualified observed counter difference; raw provider fields are preserved.
