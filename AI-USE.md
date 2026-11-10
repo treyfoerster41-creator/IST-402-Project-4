@@ -1,0 +1,12 @@
+# AI use — Assignment 4
+
+November 10, 2026: OpenAI Codex desktop coding agent (GPT-6 family; exact interface model identifier was not independently verified) helped interpret the pasted assignment, inspect existing project environments, implement the separate Vue/FastAPI/SQLite workstation, research official yfinance documentation, run tests/build, exercise the browser and write supporting documentation. The student then switched to a stronger model setting and requested a focused review; exact model labels were not independently verified. That review found and fixed a display-window/candle-materialization defect, a replay-request race, and upstream-close handling. No subagents were used. Tools included local terminal/file tools, web research and Codex's in-app browser. Dependencies were approved by the student before installation. The student remains responsible for code review, explanation, verification, video and submission.
+
+Generated code of particular interest: backend/store.py identifies timestamped quote slots, hashes canonical provider payloads, appends revisions, orders source samples and aggregates volume deltas. backend/main.py manages the upstream task and downstream WebSocket. frontend/src/App.vue reconstructs only a prefix of saved receipts for replay.
+
+Revised approach: the initial Yahoo TLS handshake failed because Python did not find a CA bundle. The agent inspected the error and configured the installed certifi bundle using SSL_CERT_FILE without disabling verification. Live observations subsequently reached the database/chart. A shutdown check also exposed the need to consume downstream WebSocket disconnects; the stream loop now waits for inbound messages/disconnect with a one-second timeout between snapshots.
+
+No credentials, private traveler data, or prior assignment databases were copied into the new project. Synthetic test observations are kept separate from real live evidence. The student confirmed VS Code review and browser acceptance on November 10, 2026 and authorized committing. Accessible video, Canvas upload and class demonstration remain unconfirmed.
+
+
+Review prompt excerpt: “go back make sure all ist gut and then continue … dont take too too long to complete the assignement 4.1.” The response stayed within Part 4.1 and added targeted regression tests, rather than starting indicators or trading features. Evidence and submission readiness distinguish automated/agent verification from the student's confirmed review and pending video.

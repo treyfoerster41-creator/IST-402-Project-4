@@ -1,0 +1,101 @@
+{
+  "description": "Real Yahoo WebSocket receipts captured November 10, 2026; not synthetic. Small evidence excerpt, not a seed.",
+  "rows": [
+    {
+      "seq": 2,
+      "identity": "yahoo:AAPL:1794335850000",
+      "revision": 1,
+      "symbol": "AAPL",
+      "source_ms": 1794335850000,
+      "received_ms": 1794335853709,
+      "price": 347.95,
+      "day_volume": 15374637,
+      "digest": "cc3e0877dd9081089c9f904b23ff30148f3db1d448f5b3d10aa9deb77b18e438",
+      "payload": "{\"change\":-2.7399902,\"change_percent\":-0.781314,\"day_volume\":\"15374637\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"market_hours\":1,\"price\":347.95,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335850000\"}"
+    },
+    {
+      "seq": 3,
+      "identity": "yahoo:AAPL:1794335853000",
+      "revision": 1,
+      "symbol": "AAPL",
+      "source_ms": 1794335853000,
+      "received_ms": 1794335854645,
+      "price": 347.96,
+      "day_volume": 15374910,
+      "digest": "34162bedd8d4b5c1c686839a1cf2ef973beeac42948edfe9547ca762a569d641",
+      "payload": "{\"change\":-2.730011,\"change_percent\":-0.77846843,\"day_volume\":\"15374910\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"last_size\":\"40\",\"market_hours\":1,\"price\":347.96,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335853000\"}"
+    },
+    {
+      "seq": 6,
+      "identity": "yahoo:AAPL:1794335853000",
+      "revision": 2,
+      "symbol": "AAPL",
+      "source_ms": 1794335853000,
+      "received_ms": 1794335855687,
+      "price": 347.96,
+      "day_volume": 15374917,
+      "digest": "6662b1507fc7bb9d3600837f13ecd3af68e2bdeeb56fe05c02a5d9da3a5a792f",
+      "payload": "{\"change\":-2.730011,\"change_percent\":-0.77846843,\"day_volume\":\"15374917\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"market_hours\":1,\"price\":347.96,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335853000\"}"
+    },
+    {
+      "seq": 8,
+      "identity": "yahoo:AAPL:1794335855000",
+      "revision": 1,
+      "symbol": "AAPL",
+      "source_ms": 1794335855000,
+      "received_ms": 1794335856662,
+      "price": 347.9785,
+      "day_volume": 15375081,
+      "digest": "8c8795c45f671b358e6ad03494cd8dc5b0a256d9de14b6c8bc5702e56cbc2218",
+      "payload": "{\"change\":-2.7115173,\"change_percent\":-0.7731949,\"day_volume\":\"15375081\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"last_size\":\"95\",\"market_hours\":1,\"price\":347.9785,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335855000\"}"
+    },
+    {
+      "seq": 10,
+      "identity": "yahoo:AAPL:1794335855000",
+      "revision": 2,
+      "symbol": "AAPL",
+      "source_ms": 1794335855000,
+      "received_ms": 1794335857694,
+      "price": 347.9785,
+      "day_volume": 15375259,
+      "digest": "8af911d46db38eb9c0ab6d73a72894a7bf71297621f522a12e9e1d29fadc37b9",
+      "payload": "{\"change\":-2.7115173,\"change_percent\":-0.7731949,\"day_volume\":\"15375259\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"market_hours\":1,\"price\":347.9785,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335855000\"}"
+    },
+    {
+      "seq": 13,
+      "identity": "yahoo:AAPL:1794335858000",
+      "revision": 1,
+      "symbol": "AAPL",
+      "source_ms": 1794335858000,
+      "received_ms": 1794335859865,
+      "price": 347.96,
+      "day_volume": 15375456,
+      "digest": "19294b30e88dc3e9bf83ce4e679579d47418f9c800c8c22a7d05995ee73958e3",
+      "payload": "{\"change\":-2.730011,\"change_percent\":-0.77846843,\"day_volume\":\"15375456\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"last_size\":\"80\",\"market_hours\":1,\"price\":347.96,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335858000\"}"
+    },
+    {
+      "seq": 16,
+      "identity": "yahoo:AAPL:1794335859000",
+      "revision": 1,
+      "symbol": "AAPL",
+      "source_ms": 1794335859000,
+      "received_ms": 1794335860815,
+      "price": 347.955,
+      "day_volume": 15376017,
+      "digest": "66c19ef84adf77d588dbb1fd0d41c1adbc5f337a25ca690e2207317e29a5b0cf",
+      "payload": "{\"change\":-2.7350159,\"change_percent\":-0.7798956,\"day_volume\":\"15376017\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"last_size\":\"150\",\"market_hours\":1,\"price\":347.955,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335859000\"}"
+    },
+    {
+      "seq": 19,
+      "identity": "yahoo:AAPL:1794335859000",
+      "revision": 2,
+      "symbol": "AAPL",
+      "source_ms": 1794335859000,
+      "received_ms": 1794335862058,
+      "price": 347.955,
+      "day_volume": 15376114,
+      "digest": "f60dcab305549cc23793f951bb1f9cc08e33c6f56c9a6c9b13aa9d9d3c759299",
+      "payload": "{\"change\":-2.7350159,\"change_percent\":-0.7798956,\"day_volume\":\"15376114\",\"exchange\":\"NMS\",\"id\":\"AAPL\",\"market_hours\":1,\"price\":347.955,\"price_hint\":\"2\",\"quote_type\":8,\"time\":\"1794335859000\"}"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "checked_at_utc": "2026-11-10T18:49:05Z",
+  "upstream_pause": {
+    "status": "unavailable",
+    "detail": "Feed deliberately paused for outage demonstration",
+    "last_received_ms": 1794336520925
+  },
+  "paused_observation_count_stable": 191,
+  "database_counts": [
+    {
+      "symbol": "AAPL",
+      "revisions": 191
+    },
+    {
+      "symbol": "BTC-USD",
+      "revisions": 39
+    },
+    {
+      "symbol": "MSFT",
+      "revisions": 196
+    }
+  ],
+  "original_receipt_2_digest_unchanged_after_restart": true,
+  "oldest_visible_candle": {
+    "complete": 1,
+    "revision": 1
+  },
+  "display_bars": 6
+}
