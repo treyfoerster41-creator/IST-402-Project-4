@@ -1,0 +1,16 @@
+{
+  "code_commit": "b8f78450598fa012bca6b7da37510712285dd0a1",
+  "public_clone_without_login": true,
+  "checks": {
+    "backend_tests": "passed",
+    "frontend_tests": "passed",
+    "production_build": "passed"
+  },
+  "clean_startup": {
+    "status": "connecting",
+    "observations": 0,
+    "schema_created": true
+  },
+  "working_tree_clean_after_checks": true,
+  "checked_at_utc": "2026-11-10T19:02:27Z"
+}

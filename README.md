@@ -39,7 +39,7 @@ npm --prefix frontend test
 npm --prefix frontend run build
 ```
 
-See [design](docs/design.md), [evidence](evidence/evidence-log.md), [demo checklist](docs/demo-checklist.md), [AI disclosure](AI-USE.md) and [submission report](report.md). Live Yahoo requires network access and provider availability. Mock tests alone do not prove live success. Browser refresh and backend restart checks are documented separately. A fresh independent checkout is still pending until a repository and submitted commit exist.
+See [design](docs/design.md), [evidence](evidence/evidence-log.md), [demo checklist](docs/demo-checklist.md), [AI disclosure](AI-USE.md) and [submission report](report.md). Live Yahoo requires network access and provider availability. Mock tests alone do not prove live success. Browser refresh and backend restart checks are documented separately. An independent clone of the published application commit passed the 12 backend tests, 5 replay tests, production build and empty-database startup on November 10, 2026; see evidence/clean-checkout-verification.json.
 
 ## Data limitations
 

@@ -32,7 +32,7 @@ Technical checks below are **agent-run observations**. Student review is recorde
 
 Screenshots are snapshots, not the required 30–60 second video. Live data comes from sampled Yahoo quotes; missing first/reset volume is unknown and interval volume is an observed counter difference, not official exchange OHLCV. Replay is accelerated receipt-order playback, not a backtest. Tests use synthetic fixed inputs and do not establish live provider availability. Backend failure tests do not establish behavior of every possible Yahoo outage.
 
-Student VS Code review/browser acceptance was confirmed on November 10, 2026. GitHub repository/submission commit, a clean independent checkout, video link/duration/access, and Canvas upload remain pending. See [demo checklist](../docs/demo-checklist.md) and [report](../report.md).
+Student VS Code review/browser acceptance was confirmed on November 10, 2026. GitHub publication and an independent checkout check are now complete (details below). Video link/duration/access and Canvas upload remain pending. See [demo checklist](../docs/demo-checklist.md) and [report](../report.md).
 
 Final check logs: [backend tests](backend-tests.txt), [replay tests](frontend-tests.txt), [production build](frontend-build.txt). Additional regression verifies BTC volume remains unknown rather than assuming counter semantics.
 
@@ -41,3 +41,11 @@ Final check logs: [backend tests](backend-tests.txt), [replay tests](frontend-te
 November 10, 2026: the student stated, “reviewed vscode and accept both, so they can commit,” confirming personal VS Code review and browser acceptance and authorizing the local commit. This does not establish GitHub publication or video/Canvas completion.
 
 Post-acceptance checks: 12 backend tests and 5 replay tests passed; production build passed. Combined application check returned saved AAPL candles over the backend WebSocket with feed status live before the authorized commit.
+
+## GitHub publication and independent checkout
+
+November 10, 2026: pushed reviewed application commit `b8f78450598fa012bca6b7da37510712285dd0a1` to [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4), branch `codex/assignment4-part1`. A clone with credential helpers disabled and interactive authentication disabled succeeded, establishing public Git read access at verification time; this was not a claimed student private-window check.
+
+The independent checkout installed the already-approved locked dependencies. Expected: all tests/build succeed and a clean startup creates its own database. Observed: 12 backend tests, 5 replay tests and production build passed; the backend WebSocket returned AAPL with zero observations and connecting status, and SQLite schema existed. The original working database was untouched. The checkout remained Git-clean after testing. This proves reproducible startup, not a second live Yahoo success.
+
+Evidence: [verification record](clean-checkout-verification.json), [backend](clean-backend-tests.txt), [replay](clean-frontend-tests.txt), [build](clean-frontend-build.txt).

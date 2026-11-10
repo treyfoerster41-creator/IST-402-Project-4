@@ -6,7 +6,7 @@ Completed: live Yahoo streaming, browser WebSocket, sampled candles/volume, SQLi
 
 Remaining submission steps:
 1. DONE: student confirmed VS Code review and browser acceptance on November 10, 2026 and authorized committing.
-2. Commit reviewed source and publish a GitHub repository. Verify an independent checkout and record its URL/commit in report.md. Replace report supporting links with accessible GitHub links for standalone Canvas viewing.
+2. DONE: reviewed application commit b8f7845 published to https://github.com/treyfoerster41-creator/IST-402-Project-4 on codex/assignment4-part1. An unauthenticated clone, all 17 tests, build and fresh SQLite startup passed. report.md includes repository/commit and absolute supporting-document links.
 3. Student records one 30–60 second demo and supplies an instructor-accessible link, confirming duration/access. Follow docs/demo-checklist.md.
 4. Upload only report.md to Canvas. Do not claim upload until it occurs.
 
