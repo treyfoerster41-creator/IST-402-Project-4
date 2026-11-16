@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
+import ChartToolbar from './ChartToolbar.vue';
+import { crossoverMarkers, showRecentCandles } from './chartPresentation.js';
 import { createChart, CandlestickSeries, LineSeries, ColorType, createSeriesMarkers } from 'lightweight-charts';
 const props = defineProps({ symbol: String });
 const fast = defineModel('fast', { default: 3 });
@@ -69,10 +71,10 @@ function draw() {
   candles.setData(r.points.map(p => ({ time: p.time, open: p.open, high: p.high, low: p.low, close: p.close })));
   fastLine.setData(r.points.filter(p => p.fast != null).map(p => ({ time: p.time, value: p.fast })));
   slowLine.setData(r.points.filter(p => p.slow != null).map(p => ({ time: p.time, value: p.slow })));
-  markers.setMarkers(r.points.filter(p => p.crossover).map(p => ({ time: p.time, position: p.crossover === 'buy' ? 'belowBar' : 'aboveBar', color: p.crossover === 'buy' ? '#63dfbb' : '#f77785', shape: p.crossover === 'buy' ? 'arrowUp' : 'arrowDown', text: p.crossover.toUpperCase() })));
+  markers.setMarkers(crossoverMarkers(r.points));
   equityLine.setData(r.equity);
   if (fittedRun !== r.id) {
-    chart.timeScale().fitContent(); equityChart.timeScale().fitContent(); fittedRun = r.id;
+    showRecentCandles(chart, r.points.length); equityChart.timeScale().fitContent(); fittedRun = r.id;
   }
 }
 watch(() => props.symbol, symbol => { quantity.value = symbol === 'BTC-USD' ? 0.01 : 1; });
@@ -80,8 +82,8 @@ onMounted(async () => {
   const options = { autoSize: true, layout: { background: { type: ColorType.Solid, color: '#111b2b' }, textColor: '#a8b7cc' }, grid: { vertLines: { color: '#1d2b40' }, horzLines: { color: '#1d2b40' } }, timeScale: { timeVisible: true } };
   chart = createChart(plot.value, options);
   candles = chart.addSeries(CandlestickSeries, { upColor: '#20c997', downColor: '#f77785', borderVisible: false, wickUpColor: '#20c997', wickDownColor: '#f77785' });
-  fastLine = chart.addSeries(LineSeries, { color: '#f0c674', lineWidth: 2, priceLineVisible: false });
-  slowLine = chart.addSeries(LineSeries, { color: '#8cb4ff', lineWidth: 2, priceLineVisible: false });
+  fastLine = chart.addSeries(LineSeries, { color: '#f0c674', lineWidth: 1, priceLineVisible: false });
+  slowLine = chart.addSeries(LineSeries, { color: '#8cb4ff', lineWidth: 1, priceLineVisible: false });
   markers = createSeriesMarkers(candles, []);
   equityChart = createChart(equityPlot.value, options);
   equityLine = equityChart.addSeries(LineSeries, { color: '#63dfbb', lineWidth: 2, priceFormat: { type: 'price', precision: 2, minMove: 0.01 } });
@@ -96,17 +98,18 @@ onBeforeUnmount(() => { disposed = true; ++version; clearInterval(poll); chart?.
 
 <template>
 <section class="strategy-desk" aria-labelledby="strategy-title">
-  <div class="section-heading"><div><p class="eyebrow">ASSIGNMENT 4.2 / STRATEGY & RESULTS</p><h2 id="strategy-title">Put the crossover to the test.</h2><p>Buy an upward crossover. Sell a downward crossover. Follow the money, one simulated fill at a time.</p></div><span class="simulation-badge">SIMULATED ONLY</span></div>
+  <div class="section-heading"><div><p class="eyebrow">ASSIGNMENT 4.2 / STRATEGY & RESULTS</p><h2 id="strategy-title">Test the SMA crossover strategy.</h2><p>Choose your settings, then test saved prices or follow new quotes with a simulated account.</p></div><span class="simulation-badge">SIMULATED ONLY</span></div>
   <form class="strategy-settings" @submit.prevent="create('backtest')">
     <div class="setting-grid">
-      <label>Fast SMA<input aria-label="Fast SMA" type="number" min="2" max="199" step="1" v-model.number="fast"></label>
-      <label>Slow SMA<input aria-label="Slow SMA" type="number" min="3" max="200" step="1" v-model.number="slow"></label>
-      <label>Starting cash ($)<input type="number" min="1" max="100000000" step=".01" v-model.number="cash"></label>
-      <label>Units per buy<input type="number" min=".000001" max="10000" step=".000001" v-model.number="quantity"></label>
-      <label>Fee per fill ($)<input type="number" min="0" max="1000" step=".01" v-model.number="fee"></label>
-      <label>Slippage (basis points)<input type="number" min="0" max="100" step=".1" v-model.number="slippage"></label>
+      <label>Fast SMA<input aria-label="Fast SMA" type="number" min="2" max="199" step="1" v-model.number="fast"><small>Completed closes in the faster average</small></label>
+      <label>Slow SMA<input aria-label="Slow SMA" type="number" min="3" max="200" step="1" v-model.number="slow"><small>Completed closes in the slower average</small></label>
+      <label>Starting cash ($)<input type="number" min="1" max="100000000" step=".01" v-model.number="cash"><small>Simulated money available at the start</small></label>
+      <label>Units per buy<input type="number" min=".000001" max="10000" step=".000001" v-model.number="quantity"><small>Shares or units bought when entering</small></label>
+      <label>Fee per fill ($)<input type="number" min="0" max="1000" step=".01" v-model.number="fee"><small>Charged on each completed buy or sell</small></label>
+      <label>Slippage (basis points)<input type="number" min="0" max="100" step=".1" v-model.number="slippage"><small>Worse fill price · 5 bps = 0.05%</small></label>
     </div>
     <div class="run-controls"><label>Backtest data<select v-model="source"><option value="yahoo">Saved Yahoo history · {{symbol}}</option><option value="practice">Synthetic accounting practice</option></select></label><button class="primary" type="submit" :disabled="!valid || busy">{{busy?'Working…':'Run backtest'}}</button><button type="button" @click="create('paper')" :disabled="!valid || busy || source!=='yahoo'">Start paper account</button></div>
+    <p class="mode-guide"><b>Run backtest</b> tests the selected saved data. <b>Start paper account</b> trades only on new quotes after creation. These settings apply to a new run; saved runs keep their original settings.</p>
     <p v-if="!valid" class="inline-error">Use whole SMA lengths with 2 ≤ fast &lt; slow ≤ 200 and valid positive account settings.</p>
     <p class="assumptions">Completed candles only · Fixed units · Long or flat · Next eligible quote fills · Fees on both sides · 1 basis point = 0.01%. Paper accounts warm up from saved history and trade only after creation.</p>
   </form>
@@ -127,7 +130,7 @@ onBeforeUnmount(() => { disposed = true; ++version; clearInterval(poll); chart?.
     <p v-if="run.metadata.truncated" class="warning">This run uses the latest 50,000 receipts. Earlier history was not included.</p>
   </template>
   <div class="results-charts" :class="{'no-result':!run}">
-    <div class="chart-card"><div class="chart-title"><b>Decision-time candles & crossovers</b><span class="line-legend"><i class="fast-key"></i>FAST <i class="slow-key"></i>SLOW</span></div><div ref="plot" class="strategy-chart" role="img" aria-label="Frozen decision-time candles with two simple moving averages and crossover markers"></div><p v-if="!run" class="empty">Run a backtest or start a paper account.</p></div>
+    <div class="chart-card"><div class="chart-title"><b>Decision-time candles & crossovers</b><span class="line-legend"><i class="fast-key"></i>FAST <i class="slow-key"></i>SLOW</span></div><ChartToolbar label="Decision chart view" :disabled="!run?.points.length" @recent="showRecentCandles(chart, run?.points.length)" @all="chart?.timeScale().fitContent()" /><div ref="plot" class="strategy-chart" role="img" aria-label="Frozen decision-time candles with two simple moving averages and crossover markers"></div><p v-if="!run" class="empty">Run a backtest or start a paper account.</p></div>
     <div class="chart-card"><div class="chart-title"><b>Account equity</b><span>CASH + POSITION</span></div><div ref="equityPlot" class="strategy-chart" role="img" aria-label="Simulated account equity over time"></div></div>
   </div>
   <template v-if="run">

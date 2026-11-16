@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('practice backtest displays indicators, accounting, trades and persists after refresh', async ({ page }) => {
   const errors=[]; page.on('pageerror', error=>errors.push(error.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Put the crossover to the test.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Test the SMA crossover strategy.' })).toBeVisible();
   await expect(page.getByTestId('indicator-summary')).toContainText('warming up');
   await page.getByLabel('Backtest data').selectOption('practice');
   await page.getByRole('button', { name: 'Run backtest', exact: true }).click();

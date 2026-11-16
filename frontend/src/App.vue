@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import StrategyDesk from './StrategyDesk.vue';
+import ChartToolbar from './ChartToolbar.vue';
+import { crossoverMarkers as signalMarkers, showRecentCandles } from './chartPresentation.js';
 import { indicators } from './indicators.js';
 import { buildReplayBars } from './replay.js';
 import { createChart, CandlestickSeries, HistogramSeries, LineSeries, createSeriesMarkers, ColorType } from 'lightweight-charts';
@@ -41,9 +43,9 @@ function draw(bars) {
   indicatorRows.value = indicators(bars, fastWindow.value, slowWindow.value);
   fastLine?.setData(indicatorRows.value.filter(p => p.fast != null).map(p => ({time:p.time,value:p.fast})));
   slowLine?.setData(indicatorRows.value.filter(p => p.slow != null).map(p => ({time:p.time,value:p.slow})));
-  crossoverMarkers?.setMarkers(indicatorRows.value.filter(p => p.crossover).map(p => ({time:p.time,position:p.crossover==='buy'?'belowBar':'aboveBar',color:p.crossover==='buy'?'#63dfbb':'#f77785',shape:p.crossover==='buy'?'arrowUp':'arrowDown',text:p.crossover.toUpperCase()})));
+  crossoverMarkers?.setMarkers(signalMarkers(indicatorRows.value));
   if (!fitted && bars.length > 1) {
-    chart.timeScale().fitContent();
+    showRecentCandles(chart, visibleBars.value.length);
     fitted = true;
   }
 }
@@ -92,7 +94,7 @@ async function loadReplay() {
     mode.value = 'replay';
     fitted = false;
     replayBars();
-    chart.timeScale().fitContent();
+    showRecentCandles(chart, visibleBars.value.length);
   } catch {
     if (version === requestVersion) error.value = 'Could not retrieve recorded observations.';
   } finally {
@@ -116,7 +118,7 @@ function live() {
   playing.value = false;
   mode.value = 'live';
   draw(data.value?.bars || []);
-  chart.timeScale().fitContent();
+  showRecentCandles(chart, visibleBars.value.length);
 }
 
 watch(symbol, () => {
@@ -149,8 +151,8 @@ onMounted(() => {
   price.priceScale().applyOptions({ scaleMargins: { top: 0.1, bottom: 0.3 } });
   volume = chart.addSeries(HistogramSeries, { priceFormat: { type: 'volume' }, priceScaleId: 'volume' });
   volume.priceScale().applyOptions({ scaleMargins: { top: 0.8, bottom: 0 } });
-  fastLine = chart.addSeries(LineSeries, {color:'#f0c674',lineWidth:2,priceLineVisible:false});
-  slowLine = chart.addSeries(LineSeries, {color:'#8cb4ff',lineWidth:2,priceLineVisible:false});
+  fastLine = chart.addSeries(LineSeries, {color:'#f0c674',lineWidth:1,priceLineVisible:false});
+  slowLine = chart.addSeries(LineSeries, {color:'#8cb4ff',lineWidth:1,priceLineVisible:false});
   crossoverMarkers = createSeriesMarkers(price, []);
   connect();
   timer = setInterval(() => now.value = Date.now(), 1000);
@@ -177,7 +179,8 @@ onBeforeUnmount(() => {
 <div v-if="error" role="alert" class="warning">{{error}}</div>
 <div v-if="mode==='replay'" class="warning">RECORDED REPLAY · {{rows.length?'Receipt-order playback; no future revisions are included.':'No saved observations for this instrument yet.'}} <button @click="playing=!playing" :disabled="!rows.length">{{playing?'Pause':'Play'}}</button><label>Observation {{index}} / {{rows.length}} <input aria-label="Replay observation" type="range" min="0" :max="rows.length" v-model.number="index"></label></div>
 <section class="metrics"><div><small>LAST OBSERVED PRICE</small><strong>{{latest?Number(latest.price).toLocaleString('en-US',{style:'currency',currency:'USD'}):'Waiting'}}</strong></div><div><small>SOURCE DATA AGE</small><strong>{{age}}</strong></div><div><small>RECEIPT AGE</small><strong>{{receiptAge}}</strong></div><div><small>STORED REVISIONS · WINDOW</small><strong>{{mode==='live'?data?.observations??0:rows.length}} <em>/ 10,000 max</em></strong></div></section>
-<section class="chart-card"><div class="chart-title"><b>{{symbol}} <span>Sampled price candles & observed volume</span></b><span>{{mode==='live'?'LIVE VIEW':'REPLAY VIEW'}}</span></div><div ref="container" class="chart" role="img" :aria-label="`${symbol} sampled one-minute candles and observed volume`"></div>
+<section class="chart-card"><div class="chart-title"><b>{{symbol}} <span>One-minute candlesticks & observed volume</span></b><span>{{mode==='live'?'LIVE VIEW':'REPLAY VIEW'}}</span></div><ChartToolbar label="Market chart view" :disabled="!visibleBars.length" @recent="showRecentCandles(chart, visibleBars.length)" @all="chart?.timeScale().fitContent()" /><div ref="container" class="chart" role="img" :aria-label="`${symbol} sampled one-minute candles and observed volume`"></div>
+<p class="candle-guide">Candle body: open to close · Wick: sampled high and low · Scroll to zoom, drag to explore</p>
 <div v-if="lastBar" class="bar-summary">Latest minute · O {{lastBar.open.toFixed(2)}} / H {{lastBar.high.toFixed(2)}} / L {{lastBar.low.toFixed(2)}} / C {{lastBar.close.toFixed(2)}} · Observed volume: {{lastBar.volume_known ? lastBar.volume.toLocaleString() : 'unknown'}} · {{lastBar.complete ? 'elapsed / revisable' : 'provisional'}}</div><p v-if="!latest" class="empty">Waiting for recorded or live Yahoo observations. No synthetic prices are displayed.</p></section>
 <div class="indicator-summary" data-testid="indicator-summary"><span class="fast-text">SMA {{fastWindow}}: {{indicatorRows.at(-1)?.fast?.toFixed(4)??'warming up'}}</span><span class="slow-text">SMA {{slowWindow}}: {{indicatorRows.at(-1)?.slow?.toFixed(4)??'warming up'}}</span><span>Completed candles only · latest revised chart values</span></div>
 <StrategyDesk :symbol="symbol" v-model:fast="fastWindow" v-model:slow="slowWindow" />
