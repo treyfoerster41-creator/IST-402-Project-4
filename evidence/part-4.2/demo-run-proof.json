@@ -1,0 +1,113 @@
+{
+  "id": "920061ad-2a63-4a9b-bfb7-132cc0bafbe1",
+  "mode": "backtest",
+  "status": "completed",
+  "symbol": "AAPL",
+  "source": "yahoo",
+  "created_ms": 1794846995523,
+  "config": {
+    "mode": "backtest",
+    "source": "yahoo",
+    "symbol": "AAPL",
+    "fast": 3,
+    "slow": 8,
+    "cash": 10000.0,
+    "quantity": 5.0,
+    "fee": 1.0,
+    "slippage_bps": 5.0
+  },
+  "metadata": {
+    "source_label": "Saved Yahoo Finance WebSocket observations, replayed in receipt order",
+    "input_count": 18664,
+    "available_count": 18664,
+    "truncated": false,
+    "first_seq": 2,
+    "cutoff_seq": 44914,
+    "first_received_ms": 1794335853709,
+    "last_received_ms": 1794846994639,
+    "assumptions": "Long or flat; fixed quantity; full fills at next eligible received quote; entry cost includes fee; no leverage, shorting, interest, taxes or forced final sale."
+  },
+  "totals": {
+    "cash": "9843.40",
+    "position": "0",
+    "cost_basis": "0.00",
+    "position_value": "0.00",
+    "realized": "-156.60",
+    "unrealized": "0.00",
+    "equity": "9843.40",
+    "total_pnl": "-156.60",
+    "fees": "100.00",
+    "return_pct": -1.566,
+    "max_drawdown_pct": 1.566,
+    "mark": 354.36,
+    "mark_source_ms": 1794846993000
+  },
+  "closed_count": 786,
+  "last_seq": 44914,
+  "orders": 100,
+  "fills": 100,
+  "first_two_fills": [
+    {
+      "id": 1,
+      "order_id": 1,
+      "side": "buy",
+      "quantity": "5.0",
+      "price": "348.374100",
+      "gross": "1741.87",
+      "fee": "1.00",
+      "realized": "0",
+      "source_ms": 1794337321000,
+      "received_ms": 1794337322266,
+      "receipt_seq": 1825,
+      "cash_after": "8257.13",
+      "position_after": "5.0"
+    },
+    {
+      "id": 2,
+      "order_id": 2,
+      "side": "sell",
+      "quantity": "5.0",
+      "price": "347.776025",
+      "gross": "1738.88",
+      "fee": "1.00",
+      "realized": "-4.99",
+      "source_ms": 1794337560000,
+      "received_ms": 1794337561351,
+      "receipt_seq": 2308,
+      "cash_after": "9995.01",
+      "position_after": "0"
+    }
+  ],
+  "last_two_fills": [
+    {
+      "id": 99,
+      "order_id": 99,
+      "side": "buy",
+      "quantity": "5.0",
+      "price": "355.117470",
+      "gross": "1775.59",
+      "fee": "1.00",
+      "realized": "0",
+      "source_ms": 1794845940000,
+      "received_ms": 1794845940946,
+      "receipt_seq": 43968,
+      "cash_after": "8071.34",
+      "position_after": "5.0"
+    },
+    {
+      "id": 100,
+      "order_id": 100,
+      "side": "sell",
+      "quantity": "5.0",
+      "price": "354.612605",
+      "gross": "1773.06",
+      "fee": "1.00",
+      "realized": "-4.53",
+      "source_ms": 1794846720000,
+      "received_ms": 1794846721538,
+      "receipt_seq": 44297,
+      "cash_after": "9843.40",
+      "position_after": "0"
+    }
+  ]
+}

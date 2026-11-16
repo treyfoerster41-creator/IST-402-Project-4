@@ -8,7 +8,7 @@ November 16, 2026
 
 For Part 4.2, I continued working on Signal Desk instead of starting a new application. The Yahoo live feed, candlestick chart, SQLite records, and replay from Part 4.1 are still there. I added two simple moving averages, crossover signals, simulated trading accounts, and backtesting. I used Codex to help implement the changes, run checks, and document the results.
 
-The default averages are SMA(3) and SMA(8). They appear as gold and blue lines, with arrows showing upward and downward crossovers. I chose short windows so the strategy can be demonstrated with the recorded data available in this project. The window lengths can be changed in the interface.
+The default averages are SMA(3) and SMA(8). They appear as gold and blue lines, with small arrows showing upward and downward crossovers. I asked for the repeated BUY/SELL labels to be removed because they crowded the chart. The chart now starts with a closer view of the latest 60 candles, with controls to show all loaded history. The legend makes clear that the arrows are signals; actual executions are recorded in Orders & fills. I chose short windows so the strategy can be demonstrated with the recorded data available in this project. The window lengths can be changed in the interface.
 
 The strategy buys a fixed number of units on an upward crossover and sells the position on a downward crossover. Each paper account shows its cash, position, equity, fees, realized and unrealized profit or loss, and maximum drawdown. Orders and fills are listed separately from the chart and saved in SQLite. I can reload a saved run after refreshing the page.
 
@@ -26,7 +26,9 @@ Late data can correct the market chart, but it does not change a trade that alre
 
 The backtest processes saved Yahoo observations in the order they were received. Revisions become available only when their recorded receipt is reached. Each run saves its settings, source, date range, and receipt cutoff. There is also a clearly labeled synthetic practice dataset for checking behavior without a live feed; those invented prices are kept out of the Yahoo market tables.
 
-One verified AAPL run used **15,405 recorded observations and 728 completed candles**, covering November 10–16, 2026. With SMA(3)/SMA(8), one unit per trade, $1 fees, and 5 basis points of slippage, it produced **94 fills**, **$94 in fees**, and a final equity of **$9,895.51**. The result was a **$104.49 loss**, or about **−1.04%**, with no open position at the end. The exact settings and receipt cutoff are saved in the [run evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/evidence/part-4.2/run-proof.json).
+In my demo, I changed **Units per buy to 5** and ran the strategy on saved AAPL history. That run used **18,664 recorded observations and 786 completed candles**, covering November 10–16, 2026. With SMA(3)/SMA(8), $10,000 starting cash, a $1 fee per fill, and 5 basis points of slippage, it produced **100 fills** and **$100 in fees**. Final cash and equity were **$9,843.40**, with a **$156.60 realized loss**, **$0 unrealized P/L**, and no open position. The return was **−1.57%**, and maximum drawdown was **1.57%**. The exact settings, receipt cutoff, and sample fills are in my [demo run evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/evidence/part-4.2/demo-run-proof.json).
+
+An earlier one-unit verification run ended at $9,895.51 after 94 fills. That run used an earlier data cutoff, so it is separate from the five-unit run in my video. I kept its [original evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/evidence/part-4.2/run-proof.json) for comparison with the earlier checks.
 
 That result shows how the strategy and execution assumptions behaved on this recorded sample. It does not show that the strategy will work on a different period or predict future returns. A positive result was not the goal; I wanted the calculations and trade history to be explainable.
 
@@ -40,7 +42,7 @@ One accounting check uses $1,000 starting cash, two units, a $1 fee per side, an
 
 The browser tests cover creating a backtest, showing trades and account results, retaining the result after refresh, invalid settings, empty Yahoo history, feed outage, paper-account controls, and a narrow screen layout. An early refresh assertion failed because it compared two different text formats; the displayed amounts were unchanged. The assertion was corrected to compare rendered text consistently, and the browser suite passed.
 
-I added a GitHub Actions workflow to run the backend tests, frontend tests/build, and browser tests on pushes and pull requests. The browser tests use a temporary database and disable Yahoo, keeping them repeatable and separate from the live-provider evidence. After I approved the code and browser interface, the Part 4.2 branch was pushed to GitHub. The [GitHub Actions run](https://github.com/treyfoerster41-creator/IST-402-Project-4/actions/runs/43899746943) passed all of these checks from a clean checkout on November 16, 2026. Codex also verified that the branch could be cloned without signing in.
+I added a GitHub Actions workflow to run the backend tests, frontend tests/build, and browser tests on pushes and pull requests. The browser tests use a temporary database and disable Yahoo, keeping them repeatable and separate from the live-provider evidence. After I approved the code and browser interface, the Part 4.2 branch was pushed to GitHub. The [GitHub Actions run](https://github.com/treyfoerster41-creator/IST-402-Project-4/actions/runs/43910474072) passed all of these checks from a clean checkout on November 16, 2026. Codex also verified that the branch could be cloned without signing in.
 
 ## Remaining limitations
 
@@ -51,10 +53,10 @@ A backtest uses at most the latest 50,000 receipts, with any truncation labeled.
 ## Repository and demo
 
 - **GitHub repository:** [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4)
-- **Part 4.2 application commit:** [`5cb41d9452b448a7f32953a6895d838bdc555afa`](https://github.com/treyfoerster41-creator/IST-402-Project-4/commit/5cb41d9452b448a7f32953a6895d838bdc555afa) on `codex/assignment4-part2`.
-- **Part 4.2 demo video:** pending my new recording and accessible link. The Part 4.1 video does not demonstrate these new features.
+- **Part 4.2 application commit:** [`3bd8073930d965bc2fde77cb1d6f073e51bc4639`](https://github.com/treyfoerster41-creator/IST-402-Project-4/commit/3bd8073930d965bc2fde77cb1d6f073e51bc4639) on the [Part 4.2 branch](https://github.com/treyfoerster41-creator/IST-402-Project-4/tree/codex/assignment4-part2).
+- **Part 4.2 demo video:** [Watch my Signal Desk walkthrough](https://psu.mediaspace.kaltura.com/media/t/1_b8wzer9g) (silent recording, about 1 minute 19 seconds). I recorded the updated interface myself and confirmed that this link works in a private browser on November 16, 2026.
 
-I will submit only this report to Canvas once my new demo link is added. The source code stays in GitHub.
+I will upload only this report to Canvas. The source code stays in GitHub, and the demo is hosted on Kaltura.
 
 ## Supporting documents
 

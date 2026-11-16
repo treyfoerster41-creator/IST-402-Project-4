@@ -8,3 +8,7 @@ Use the running dashboard with AAPL selected. Have the saved Yahoo backtest sele
 4. **42–55 seconds:** Refresh and show the saved result remains, then briefly show the passing GitHub Actions run once published. Say: “The results persist in SQLite. I checked the moving averages against pandas and tested the accounting against a known example.”
 
 The chosen test can lose money; profitability is not required. If using Synthetic accounting practice instead, explicitly call it invented test data and do not describe it as Yahoo history. Record a new Part 4.2 video and check its link without signing in. Add that link and the reviewed application commit to report.md. Submit only report.md to Canvas.
+
+## Selected recording — November 16, 2026
+
+I recorded a silent walkthrough with my cursor visible, changed Units per buy to 5, ran the saved-Yahoo backtest, and showed its account results, charts, orders/fills and execution assumptions. I selected the original 79.465-second recording and confirmed [the Kaltura link](https://psu.mediaspace.kaltura.com/media/t/1_b8wzer9g) in a private browser. This is the selected video; the shorter script above is the original recording plan. See [video verification](../evidence/part-4.2/video-verification.json) and [the demo run](../evidence/part-4.2/demo-run-proof.json).

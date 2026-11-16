@@ -1,0 +1,25 @@
+{
+  "video_url": "https://psu.mediaspace.kaltura.com/media/t/1_b8wzer9g",
+  "local_filename": "Screen Recording 2026-11-16 at 11.36.12\u202fAM.mov",
+  "sha256": "63b66f0d3b738a7a384339ae03a1f4a95201483703e09d3b62b64eebc577144d",
+  "duration_seconds": 79.465,
+  "width": 2940,
+  "height": 1558,
+  "audio_tracks": 0,
+  "access_check": {
+    "confirmed_by": "student",
+    "date": "2026-11-16",
+    "method": "Private browser; student confirmed the link works"
+  },
+  "review_method": "AVFoundation metadata and sampled frames at eight-second intervals plus final frame",
+  "reviewed_features": [
+    "Visible cursor",
+    "One-minute candlesticks, volume, both SMA lines and crossover arrows",
+    "Changing units per buy to five and creating a saved-Yahoo backtest",
+    "Account metrics and equity chart",
+    "Orders and fills with quantities, fees and resulting cash",
+    "Execution assumptions"
+  ],
+  "run_id": "920061ad-2a63-4a9b-bfb7-132cc0bafbe1",
+  "student_choice": "Use the original recording; student explicitly accepted the approximately 19 seconds beyond one minute."
+}
