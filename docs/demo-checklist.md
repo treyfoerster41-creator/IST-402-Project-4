@@ -1,21 +1,10 @@
-# Demo recording guide and final selection
+# Part 4.2 demo — one 45–60 second video
 
-Student VS Code/browser review and acceptance were confirmed November 10, 2026.
+Use the running dashboard with AAPL selected. Have the saved Yahoo backtest selected in **Saved runs** so the result and trade table are ready. A live market is useful for the upper chart but is not required to rerun recorded history.
 
-Before recording, open the dashboard with AAPL selected and Live stream active. Open backend/data/market.db in the already-installed DB Browser for SQLite; prepare Browse Data → observations. Do not edit or delete records. Record when AAPL shows recent live updates so both price and equity volume can be demonstrated.
+1. **0–12 seconds:** Show the price chart and the gold/blue SMA lines. Say: “I added two moving averages and crossover signals. Only completed candles count.”
+2. **12–25 seconds:** Show the strategy settings, choose Saved Yahoo history, and click Run backtest. Say: “This replays my recorded Yahoo observations in receipt order. Orders fill on a later quote with fees and slippage.”
+3. **25–42 seconds:** Show cash, position, realized/unrealized P/L, equity chart and Orders & fills. Say: “The account tracks each fill and its effect on cash and profit. This result is for the recorded sample, not a prediction.”
+4. **42–55 seconds:** Refresh and show the saved result remains, then briefly show the passing GitHub Actions run once published. Say: “The results persist in SQLite. I checked the moving averages against pandas and tested the accounting against a known example.”
 
-1. **0–15 seconds:** Show AAPL candles, volume, LIVE status, source/receipt age and stored record count. Say: “Yahoo Finance streams quotes to my FastAPI backend, which stores them in SQLite and sends chart updates to Vue over WebSockets.”
-2. **15–25 seconds:** Briefly switch to SQLite observations and show identity, revision, source_ms and received_ms. Say: “I preserve source and receipt times. Exact duplicates are ignored and changed observations keep revisions.”
-3. **25–35 seconds:** Return to the dashboard and click Simulate feed outage. Wait for unavailable. Say: “This pauses Yahoo updates; the saved data stays.”
-4. **35–45 seconds:** Click Recorded replay, then Play. Say: “Replay uses real saved observations from SQLite in arrival order, including revisions.”
-5. **45–60 seconds:** Click Reconnect Yahoo and Live stream. Show live status returning. Say: “Candles use sampled quotes. I tested duplicates, revisions and out-of-order arrivals.”
-
-Keep the whole recording under one minute. If reconnection is slow, wait for it and record another take. Upload the single video to an instructor-accessible service, confirm access and duration, and provide its URL. No video/access/Canvas submission is claimed until verified. Upload only report.md to Canvas after adding the repository URL, submitted commit and video link.
-
-## Finding the saved table
-
-Open DB Browser for SQLite (already installed on the student’s Mac), choose Open Database, and select market.db inside IST 402 → Assignment 4 → backend → data. Select the Browse Data tab, then observations in the table dropdown. Each row is a saved Yahoo update. identity identifies a timestamped quote slot, revision identifies a changed version, source_ms is the provider’s timestamp, and received_ms is the backend’s receipt timestamp (Unix UTC milliseconds). Showing these rows is enough for the brief persistence segment; no edits are needed.
-
-## Current recording status — November 10, 2026
-
-The student selected [the original demo video](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s), lasting 1:25, and confirmed access in a private browser. Playback was also checked by the agent. The student explicitly chose this recording after reviewing its duration. The report uses this exact Kaltura link; no replacement video is requested. The timing guide above records the original assignment guidance. Canvas upload remains a student step.
+The chosen test can lose money; profitability is not required. If using Synthetic accounting practice instead, explicitly call it invented test data and do not describe it as Yahoo history. Record a new Part 4.2 video and check its link without signing in. Add that link and the reviewed application commit to report.md. Submit only report.md to Canvas.

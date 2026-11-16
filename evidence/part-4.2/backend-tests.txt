@@ -1,0 +1,32 @@
+test_invalid_symbol (test_api.ApiTests.test_invalid_symbol) ... ok
+test_persisted_completion_revision (test_api.ApiTests.test_persisted_completion_revision) ... ok
+test_provider_failure_and_pause (test_api.ApiTests.test_provider_failure_and_pause) ... ok
+test_clean_upstream_close_is_detected (test_api.StreamTests.test_clean_upstream_close_is_detected) ... ok
+test_selected_symbol_staleness (test_api.StreamTests.test_selected_symbol_staleness) ... ok
+test_crypto_volume_is_not_assumed_to_be_session_volume (test_store.StorageTests.test_crypto_volume_is_not_assumed_to_be_session_volume) ... ok
+test_display_window_cannot_corrupt_stored_open (test_store.StorageTests.test_display_window_cannot_corrupt_stored_open) ... ok
+test_duplicate_revision_out_of_order_restart (test_store.StorageTests.test_duplicate_revision_out_of_order_restart) ... ok
+test_late_sample_repairs_following_minute_volume (test_store.StorageTests.test_late_sample_repairs_following_minute_volume) ... ok
+test_missing_volume_reset_invalid (test_store.StorageTests.test_missing_volume_reset_invalid) ... ok
+test_ohlc_order_and_cutoff (test_store.StorageTests.test_ohlc_order_and_cutoff) ... ok
+test_zero_cutoff_and_crash_recovery (test_store.StorageTests.test_zero_cutoff_and_crash_recovery) ... ok
+test_duplicate_cursor_cannot_double_fill (test_strategy.AccountingTests.test_duplicate_cursor_cannot_double_fill) ... ok
+test_exit_fee_cannot_create_negative_cash (test_strategy.AccountingTests.test_exit_fee_cannot_create_negative_cash) ... ok
+test_input_validation (test_strategy.AccountingTests.test_input_validation) ... ok
+test_insufficient_cash_rejects_without_fees (test_strategy.AccountingTests.test_insufficient_cash_rejects_without_fees) ... ok
+test_known_fee_slippage_realized_and_unrealized (test_strategy.AccountingTests.test_known_fee_slippage_realized_and_unrealized) ... ok
+test_late_quote_does_not_fill_and_end_does_not_invent_trade (test_strategy.AccountingTests.test_late_quote_does_not_fill_and_end_does_not_invent_trade) ... ok
+test_no_initial_entry_no_shorting_and_future_quote_ignored (test_strategy.AccountingTests.test_no_initial_entry_no_shorting_and_future_quote_ignored) ... ok
+test_crossover_matches_independent_pandas_reference (test_strategy.IndicatorTests.test_crossover_matches_independent_pandas_reference) ... ok
+test_future_prefix_independence_and_restore (test_strategy.IndicatorTests.test_future_prefix_independence_and_restore) ... ok
+test_known_average_and_equal_touch_crossover (test_strategy.IndicatorTests.test_known_average_and_equal_touch_crossover) ... ok
+test_pandas_reference_and_incremental_batch (test_strategy.IndicatorTests.test_pandas_reference_and_incremental_batch) ... ok
+test_unfinished_bar_is_excluded_and_revision_frozen (test_strategy.IndicatorTests.test_unfinished_bar_is_excluded_and_revision_frozen) ... ok
+test_paper_cursor_ledger_and_restart_idempotence (test_strategy.PersistenceTests.test_paper_cursor_ledger_and_restart_idempotence) ... ok
+test_practice_persists_auditable_run_orders_fills (test_strategy.PersistenceTests.test_practice_persists_auditable_run_orders_fills) ... ok
+test_saved_yahoo_backtest_empty_and_receipt_cutoff (test_strategy.PersistenceTests.test_saved_yahoo_backtest_empty_and_receipt_cutoff) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.272s
+
+OK

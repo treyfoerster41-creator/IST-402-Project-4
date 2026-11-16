@@ -1,4 +1,4 @@
-# Part 4.1 design
+# Market data design (Part 4.1 foundation)
 
 ## Data flow and responsibilities
 
@@ -6,7 +6,7 @@ Yahoo Finance pricing stream → yfinance AsyncWebSocket → FastAPI validator �
 
 One upstream connection subscribes to AAPL, MSFT and BTC-USD for the lifetime of the backend. Vue receives a bounded complete chart snapshot every second, not a new fabricated price. Upstream messages are persisted even without a browser. A displayed price only changes when a provider quote or stored replay receipt changes it. Browser connection retries every two seconds; backend failures retry every five seconds. Quote validation rejects unsupported symbols, nonpositive/nonfinite prices, invalid source timestamps and negative volume. Provider failures become sanitized status messages.
 
-FastAPI /api/observations/{symbol} retrieves up to 10,000 latest journal rows in local receipt sequence. Vue reconstructs a selected receipt prefix for replay; no future revisions are applied, and completion uses the last reached receipt time. A request token discards stale replay responses after instrument/mode changes. Replay is accelerated (150 ms/receipt), not a backtest. No strategies or accounting exist in this part. POST /api/feed/pause and /resume deliberately interrupt/resume the upstream feed for classroom failure evidence. Not suitable for a public deployment.
+FastAPI /api/observations/{symbol} retrieves up to 10,000 latest journal rows in local receipt sequence. Vue reconstructs a selected receipt prefix for replay; no future revisions are applied, and completion uses the last reached receipt time. A request token discards stale replay responses after instrument/mode changes. Replay is accelerated (150 ms/receipt), not a backtest. This receipt-player remains separate from the Part 4.2 strategy/backtest engine. POST /api/feed/pause and /resume deliberately interrupt/resume the upstream feed for classroom failure evidence. Not suitable for a public deployment.
 
 ## SQLite schema
 
@@ -26,7 +26,7 @@ Replay is bounded to the latest 10,000 revisions; it can omit earlier revisions 
 
 ## Verification and remaining scope
 
-Tests use temporary SQLite files and synthetic labeled quotes. They cover deduplication, revisions, source ordering/OHLC, volume reset, invalid values, persistence through reinitialization, cutoff queries, persisted candle completion and sanitized mocked failure. Real Yahoo and browser checks are separate in evidence. Part 4.2 indicators/trading/backtesting and Part 4.3 AI/audio are not implemented.
+Tests use temporary SQLite files and synthetic labeled quotes. They cover deduplication, revisions, source ordering/OHLC, volume reset, invalid values, persistence through reinitialization, cutoff queries, persisted candle completion and sanitized mocked failure. Real Yahoo and browser checks are separate in evidence. Part 4.2 indicators/trading/backtesting are documented in [strategy-design.md](strategy-design.md). Part 4.3 AI/audio is not implemented.
 
 The Yahoo adapter follows [yfinance's asynchronous streaming API](https://ranaroussi.github.io/yfinance/reference/api/yfinance.AsyncWebSocket.html). Chart choice: [Lightweight Charts](https://github.com/tradingview/lightweight-charts) provides financial candles, aligned volume, zoom/pan, resizing and visible attribution; Vue keeps rendering state separate from backend persistence.
 

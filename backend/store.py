@@ -3,11 +3,12 @@ from contextlib import contextmanager
 import hashlib
 import json
 import math
+import os
 import sqlite3
 import time
 from pathlib import Path
 
-DB = Path(__file__).parent / 'data' / 'market.db'
+DB = Path(os.environ.get('MARKET_DB_PATH', str(Path(__file__).parent / 'data' / 'market.db')))
 SYMBOLS = ('AAPL', 'MSFT', 'BTC-USD')
 
 @contextmanager

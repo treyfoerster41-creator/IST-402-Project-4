@@ -57,3 +57,7 @@ November 10, 2026: the student supplied [IST 402 — Assignment 4.1 Demo](https:
 The corresponding student-provided local recording measured 85.383 seconds. Sampled frames show live AAPL candles/volume and source/receipt ages, symbol switching, recorded replay, a return to live mode, and the SQLite **candles** table with revision/completion fields. This is not a claim that the video shows the observations table’s source and receipt columns; those are documented in the schema, tests and separate live evidence.
 
 A separate 55.023-second MP4 was exported locally by speeding up the complete recording approximately 1.55×, with no footage removed. Native macOS AVFoundation was used without installing packages. Sampled output frames were checked for readable chart/database content. The original recording was preserved. The shortened copy is ignored at evidence/local-video/assignment-4.1-demo-55s.mp4 and is not committed to GitHub. The student chose the original recording instead; the shortened copy is not the submission video.
+
+## Part 4.2 continuation
+
+The November 16 continuation is recorded in [Part 4.2 evidence](part-4.2/evidence-log.md). The earlier report and demo remain archived as Part 4.1 evidence.

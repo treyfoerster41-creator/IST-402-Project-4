@@ -10,3 +10,11 @@ No credentials, private traveler data, or prior assignment databases were copied
 
 
 Review prompt excerpt: “go back make sure all ist gut and then continue … dont take too too long to complete the assignement 4.1.” The response stayed within Part 4.1 and added targeted regression tests, rather than starting indicators or trading features. Evidence and submission readiness distinguish automated/agent verification from the student's confirmed review and video-access check. The agent prepared an optional 55-second copy with native macOS video tools, preserving the original. The student explicitly selected the original 1:25 recording and its Kaltura link for the report; the optional edited copy is not the submission video.
+
+## Part 4.2 — November 16, 2026
+
+I used Codex to help with the SMA/crossover implementation, receipt-time simulation design, Decimal accounting, SQLite persistence, Vue interface, pandas comparison tests, Playwright tests, GitHub Actions configuration, browser verification and first-person report drafting. The exact interface model identifier was not independently verified. No subagents were used. Existing pandas supplied the independent calculation reference; I explicitly approved Playwright and Chromium before installation.
+
+A key design choice was to backtest the observation journal in arrival order and freeze completed decision inputs, rather than read the latest corrected candles and accidentally introduce future revisions. Code review also added an exit-fee check so a simulated sale cannot create negative cash. An initial browser refresh test compared rendered text with raw concatenated text and failed despite identical values; the assertion was corrected and the complete browser suite passed. These steps are recorded separately from student personal review and live-provider observations.
+
+I have kept the report in my own first-person voice while crediting Codex for its implementation and automated checks. I reviewed the new Part 4.2 code in VS Code and accepted the browser application on November 16, 2026, then authorized publication and verification. My Part 4.2 demo is still pending.

@@ -1,6 +1,6 @@
-# Signal Desk — Assignment 4.1
+# Signal Desk — Assignment 4.2
 
-Local Vue/FastAPI/SQLite market dashboard. Receives Yahoo Finance WebSocket quotes through yfinance, stores observation revisions, and pushes sampled one-minute candlesticks and observed volume to Vue through a second WebSocket. Includes receipt-order replay and deliberate feed outage/reconnect controls. No trading or model integration in Part 4.1.
+Local Vue/FastAPI/SQLite market dashboard. Receives Yahoo Finance WebSocket quotes through yfinance, stores observation revisions, and pushes sampled one-minute candlesticks and observed volume to Vue through a second WebSocket. Includes receipt-order replay and deliberate feed outage/reconnect controls. Part 4.2 adds two SMA overlays, crossover signals, persistent simulated accounts, and historical backtests. All trading is simulated; no broker or AI decision integration is present.
 
 ## Start from a clean checkout
 
@@ -37,9 +37,31 @@ Simulate feed outage pauses the real upstream connection. Status becomes unavail
 .venv/bin/python -m unittest discover -s backend/tests -v
 npm --prefix frontend test
 npm --prefix frontend run build
+cd frontend
+npx playwright install chromium
+npm run test:browser
 ```
 
 See [design](docs/design.md), [evidence](evidence/evidence-log.md), [demo checklist](docs/demo-checklist.md), [AI disclosure](AI-USE.md) and [submission report](report.md). Live Yahoo requires network access and provider availability. Mock tests alone do not prove live success. Browser refresh and backend restart checks are documented separately. An independent clone of the published application commit passed the 12 backend tests, 5 replay tests, production build and empty-database startup on November 10, 2026; see evidence/clean-checkout-verification.json.
+
+## Indicators, paper accounts and backtests
+
+Scroll to **Put the crossover to the test**. Default SMA windows are 3 and 8 completed one-minute sampled candles; change them to any whole lengths with 2 ≤ fast < slow ≤ 200. Current unfinished candles do not contribute. Gold is fast, blue is slow; arrows mark crossovers. An equal pair keeps the last strict side, and the first valid pair only establishes the starting side.
+
+- **Run backtest / Saved Yahoo history** processes up to the latest 50,000 saved receipts for the selected instrument, respecting their arrival sequence and revision availability. This is historical local data; it does not download a complete exchange history. Empty history shows a message rather than inventing prices.
+- **Synthetic accounting practice** is an explicitly labeled, fixed set of invented quotes for offline verification. It is never inserted into the market observation tables and is not evidence of market returns. It works from a fresh checkout without Yahoo.
+- **Start paper account** creates a new, separate simulated account using real Yahoo observations. Existing history warms up indicators without historical trades; new receipts can trigger/fill orders. The worker runs even without a browser. A feed outage leaves pending orders waiting. **Stop paper account** cancels pending orders and freezes the account snapshot, including any open position. It does not delete records or force a sale.
+- **Saved runs** reloads up to the 50 newest accounts/backtests. Each run keeps its original parameters, source and receipt bounds. Changing the form only changes a new run and the upper chart, not an existing account.
+
+Defaults: $10,000 starting cash, one unit (0.01 when switching to BTC-USD), $1 fee per fill and 5 basis points adverse slippage. Long or flat, no leverage. A crossover queues an order; the next received eligible quote from a later source minute supplies its fill price. Decisions use frozen completed candles as first known, while the upper market chart can reflect later corrections. The lower charts show the run's own frozen decisions and equity. Charts retain 500 points; full orders/fills and summary performance remain saved.
+
+See [Part 4.2 design and accounting](docs/strategy-design.md), [verification evidence](evidence/part-4.2/evidence-log.md), and the [Part 4.1 report archive](docs/assignment-4-part-1-report-archive.md).
+
+## Continuous checks
+
+`.github/workflows/checks.yml` runs backend tests, frontend tests/build and Chromium browser tests on pushes, pull requests and manual dispatch. The browser harness starts ports 8005/5175 with its own temporary database and `MARKET_FEED_DISABLED=1`; it never modifies the working market database. Local tests do not establish that a remote Actions run passed. The evidence log records remote run status separately after publication.
+
+For a separate test database, `MARKET_DB_PATH` may point to a different file before startup. Normal startup needs neither environment variable nor credentials. Keep one backend worker to avoid duplicate Yahoo subscriptions and account processing.
 
 ## Data limitations
 

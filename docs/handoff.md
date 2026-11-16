@@ -1,13 +1,15 @@
-# Part 4.1 handoff
+# Part 4.2 handoff
 
-The running app is http://127.0.0.1:5174/ (Vue); backend is port 8004. Start commands are in README. Use the separate Assignment 4 folder, not the Expedia project. The database contains real Yahoo observations and must be preserved.
+Work on `codex/assignment4-part2` in the separate Assignment 4 folder. The Part 4.1 report is preserved at docs/assignment-4-part-1-report-archive.md. Preserve the ignored market database and its real observations.
 
-Completed: live Yahoo streaming, browser WebSocket, sampled candles/volume, SQLite journal/revisions and candle completeness, replay, outage control, automated checks, live/browser evidence, documentation and report with repository, commit and video links. Twelve backend tests, five replay tests and production build passed on November 10, 2026.
+Implemented: SMA(3)/SMA(8) overlays and crossover markers; configurable lengths; frozen receipt-time strategy; paper accounts; orders/fills and Decimal accounting; saved-Yahoo and synthetic-practice backtests; equity/drawdown and trade tables; persistent state; backend/reference/frontend/browser tests; Actions workflow on push/PR. No Part 4.3 AI/audio or real trading.
 
-Remaining submission steps:
-1. DONE: student confirmed VS Code review and browser acceptance on November 10, 2026 and authorized committing.
-2. DONE: reviewed application commit b8f7845 published to https://github.com/treyfoerster41-creator/IST-402-Project-4 on codex/assignment4-part1. An unauthenticated clone, all 17 tests, build and fresh SQLite startup passed. report.md includes repository/commit and absolute supporting-document links.
-3. DONE: the student selected the original 1:25 recording at https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s and confirmed private-browser access. The report uses this exact link. The student explicitly chose to keep this recording; no replacement or further video editing is pending.
-4. Upload only report.md to Canvas. Do not claim upload until it occurs.
+Running locally: frontend http://127.0.0.1:5174/, backend port 8004. Start commands and offline browser harness are in README.
 
-No Part 4.2 indicators, trading/accounting or backtest and no Part 4.3 AI/audio integration exist yet. Those are later cumulative parts.
+Verification: 27 backend tests, 8 frontend unit tests, 5 browser tests and production build. Real AAPL backtest created through browser: 15,405 receipts, 728 completed strategy candles, 94 fills, −$104.49 P/L after fees/slippage. A separate paper account was started and remains running; it starts flat and will only trade new crossover signals. The original journal was untouched except normal live collection and additive simulation tables.
+
+Remaining:
+1. DONE: I personally reviewed the new code in VS Code and accepted the Part 4.2 browser behavior on November 16, 2026. I authorized committing, pushing and verification.
+2. Commit/push the reviewed Part 4.2 branch, verify the GitHub Actions run and record its URL/result. Add the actual application commit to report.md.
+3. Student records one Part 4.2 demo and supplies its accessible link. Follow docs/demo-checklist.md. The old Part 4.1 video is archived, not reused.
+4. Upload only report.md to Canvas once the commit/video fields are filled. Do not claim submission until the student confirms it.

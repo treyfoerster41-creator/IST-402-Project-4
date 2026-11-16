@@ -1,0 +1,13 @@
+
+> market-workstation@0.1.0 build
+> vite build
+
+vite v6.4.6 building for production...
+transforming...
+✓ 19 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.37 kB │ gzip:  0.28 kB
+dist/assets/index-BNEDfv44.css    7.38 kB │ gzip:  2.20 kB
+dist/assets/index-pITalghx.js   278.98 kB │ gzip: 95.74 kB
+✓ built in 565ms

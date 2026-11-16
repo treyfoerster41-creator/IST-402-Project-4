@@ -1,0 +1,135 @@
+{
+  "reference": "pandas 3.1.1 rolling(window,min_periods=window).mean(); last strict side crosses",
+  "prices": [
+    3,
+    2,
+    1,
+    1,
+    1,
+    2,
+    3,
+    4,
+    3,
+    2,
+    1,
+    1,
+    2,
+    4,
+    6,
+    5,
+    3,
+    2
+  ],
+  "fast": 2,
+  "slow": 3,
+  "expected": [
+    {
+      "time": 60,
+      "fast": null,
+      "slow": null,
+      "crossover": null
+    },
+    {
+      "time": 120,
+      "fast": 2.5,
+      "slow": null,
+      "crossover": null
+    },
+    {
+      "time": 180,
+      "fast": 1.5,
+      "slow": 2.0,
+      "crossover": null
+    },
+    {
+      "time": 240,
+      "fast": 1.0,
+      "slow": 1.3333333333333333,
+      "crossover": null
+    },
+    {
+      "time": 300,
+      "fast": 1.0,
+      "slow": 1.0,
+      "crossover": null
+    },
+    {
+      "time": 360,
+      "fast": 1.5,
+      "slow": 1.3333333333333333,
+      "crossover": "buy"
+    },
+    {
+      "time": 420,
+      "fast": 2.5,
+      "slow": 2.0,
+      "crossover": null
+    },
+    {
+      "time": 480,
+      "fast": 3.5,
+      "slow": 3.0,
+      "crossover": null
+    },
+    {
+      "time": 540,
+      "fast": 3.5,
+      "slow": 3.3333333333333335,
+      "crossover": null
+    },
+    {
+      "time": 600,
+      "fast": 2.5,
+      "slow": 3.0,
+      "crossover": "sell"
+    },
+    {
+      "time": 660,
+      "fast": 1.5,
+      "slow": 2.0,
+      "crossover": null
+    },
+    {
+      "time": 720,
+      "fast": 1.0,
+      "slow": 1.3333333333333333,
+      "crossover": null
+    },
+    {
+      "time": 780,
+      "fast": 1.5,
+      "slow": 1.3333333333333333,
+      "crossover": "buy"
+    },
+    {
+      "time": 840,
+      "fast": 3.0,
+      "slow": 2.3333333333333335,
+      "crossover": null
+    },
+    {
+      "time": 900,
+      "fast": 5.0,
+      "slow": 4.0,
+      "crossover": null
+    },
+    {
+      "time": 960,
+      "fast": 5.5,
+      "slow": 5.0,
+      "crossover": null
+    },
+    {
+      "time": 1020,
+      "fast": 4.0,
+      "slow": 4.666666666666667,
+      "crossover": "sell"
+    },
+    {
+      "time": 1080,
+      "fast": 2.5,
+      "slow": 3.3333333333333335,
+      "crossover": null
+    }
+  ]
+}

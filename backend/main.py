@@ -15,6 +15,8 @@ from yfinance.config import YfConfig
 YfConfig.debug.hide_exceptions = False
 from .store import initialize, ingest, records, stored_candles, recover_materialized, SYMBOLS
 
+from .trading import router as trading_router, initialize_trading, account_worker
+
 state = {'status':'connecting','detail':'Waiting for Yahoo Finance','last_received_ms':None}
 paused = False
 
@@ -70,13 +72,23 @@ async def feed():
 async def lifespan(app):
     initialize()
     recover_materialized()
-    task=asyncio.create_task(feed())
-    yield
-    task.cancel()
-    with contextlib.suppress(asyncio.CancelledError):
-        await task
+    initialize_trading()
+    tasks = [asyncio.create_task(account_worker())]
+    if os.environ.get('MARKET_FEED_DISABLED') == '1':
+        state.update(status='unavailable', detail='Yahoo disabled for deterministic offline tests')
+    else:
+        tasks.append(asyncio.create_task(feed()))
+    try:
+        yield
+    finally:
+        for task in tasks:
+            task.cancel()
+        for task in tasks:
+            with contextlib.suppress(asyncio.CancelledError):
+                await task
 
 app=FastAPI(lifespan=lifespan)
+app.include_router(trading_router)
 
 def snapshot(symbol):
     rows=records(symbol)

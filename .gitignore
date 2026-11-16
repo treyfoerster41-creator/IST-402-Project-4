@@ -9,3 +9,6 @@ frontend/dist/
 
 # Local recordings are hosted on Kaltura, not committed.
 evidence/local-video/
+
+frontend/test-results/
+frontend/playwright-report/

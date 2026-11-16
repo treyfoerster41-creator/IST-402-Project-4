@@ -1,51 +1,67 @@
-# Assignment 4, Part 1 - Market Data and the Dashboard
+# Assignment 4, Part 2 - Indicators, Simulated Trading, and Backtesting
 
 **Trey Foerster**
 
-November 10, 2026
+November 16, 2026
 
-## What I completed
+## What I added
 
-For Part 4.1, I built Signal Desk, a market dashboard that displays live data from Yahoo Finance. I used Vue for the frontend, FastAPI for the backend, SQLite for storage, and Lightweight Charts for the candlestick and volume charts. I used Codex to help with implementation, testing, and documentation, and I reviewed the code in VS Code and the working application in the browser.
+For Part 4.2, I continued working on Signal Desk instead of starting a new application. The Yahoo live feed, candlestick chart, SQLite records, and replay from Part 4.1 are still there. I added two simple moving averages, crossover signals, simulated trading accounts, and backtesting. I used Codex to help implement the changes, run checks, and document the results.
 
-The dashboard supports AAPL, MSFT, and BTC-USD. Yahoo quotes reach the backend through yfinance's WebSocket connection, are saved in SQLite, and are sent to the browser over another WebSocket. The page shows the data source, how old the source and received data are, the feed status, and the number of stored observations.
+The default averages are SMA(3) and SMA(8). They appear as gold and blue lines, with arrows showing upward and downward crossovers. I chose short windows so the strategy can be demonstrated with the recorded data available in this project. The window lengths can be changed in the interface.
 
-I also included recorded replay with play, pause, and a slider. Replay uses saved Yahoo observations, so it can work when the live feed is unavailable. The **Simulate feed outage** button pauses the Yahoo connection and displays an unavailable status. **Reconnect Yahoo** starts the connection again. Saved records stay in the database through an outage, browser refresh, or server restart.
+The strategy buys a fixed number of units on an upward crossover and sells the position on a downward crossover. Each paper account shows its cash, position, equity, fees, realized and unrealized profit or loss, and maximum drawdown. Orders and fills are listed separately from the chart and saved in SQLite. I can reload a saved run after refreshing the page.
 
-## How I handled the data
+## Decisions and assumptions
 
-I kept the data processing in the backend and the chart controls in Vue. The browser requests data from the backend and never opens SQLite directly. The backend creates the database tables at startup. Setup instructions are in the README, and the current Yahoo feed does not require credentials.
+I kept the strategy and accounting in FastAPI, with Vue handling the controls and charts. All trades are simulated. The default account starts with $10,000, trades one unit at a time, and applies a $1 fee per fill plus 5 basis points of adverse slippage. It can hold a long position or stay in cash; it cannot short or borrow money.
 
-Each saved observation includes its identity, source time, receipt time, and revision. The identity uses the symbol and Yahoo timestamp; it is not an exchange trade ID. Exact duplicate payloads are ignored. If a payload changes for the same identity, the backend saves a new revision and keeps the earlier version. When an observation arrives late, the affected candles are recalculated using source-time order.
+An unfinished candle does not count toward an SMA or trigger a trade. The first complete pair of averages establishes the initial relationship. After that, a change from one side to the other creates a crossover. If the averages are equal, the strategy keeps the last clear relationship until they separate again.
 
-Replay follows the order observations were received. It only uses the records available at the selected replay point, so a later correction does not appear before it actually arrived. Candles also have a completion flag: the current minute is provisional, while an elapsed minute is marked complete but can still be revised if late data arrives.
+I also separated a signal from its execution. A signal queues an order, and a later eligible received quote supplies the fill price. The strategy cannot use its own signal candle's close as an immediate fill. Fees are included in cash and profit calculations. Orders are rejected if the account cannot cover the cost, and a backtest does not invent a final trade just to close an open position.
 
-## Testing and fixes
+Late data can correct the market chart, but it does not change a trade that already happened in the simulation. The lower chart preserves the candle and indicator values that were actually used for decisions. This avoids letting a later correction make an earlier result look better.
 
-Codex ran **12 backend tests and 5 frontend replay tests**, and all 17 passed. The frontend production build also passed. These checks covered duplicate and revised observations, out-of-order arrivals, volume resets, persistence, replay timing, and feed failures. A separate live check confirmed that actual Yahoo observations reached the backend, SQLite, and the chart. The outage, replay, refresh, and restart results are recorded in the evidence log.
+## Backtesting and results
 
-Two fixes were particularly useful. The initial Yahoo connection failed because Python could not find its certificate trust bundle. Configuring the installed certifi bundle fixed the connection while keeping certificate verification enabled. Review also caught a problem where limiting the chart's input history could change an older candle's opening price. Candle calculations now use the full affected minute and its preceding observation. A test with 10,001 saved receipts confirms that the original open and high are preserved.
+The backtest processes saved Yahoo observations in the order they were received. Revisions become available only when their recorded receipt is reached. Each run saves its settings, source, date range, and receipt cutoff. There is also a clearly labeled synthetic practice dataset for checking behavior without a live feed; those invented prices are kept out of the Yahoo market tables.
 
-A fresh clone of the GitHub repository also passed the tests, build, and startup check, including automatic SQLite initialization. I personally reviewed the code and browser application, recorded the demo, and confirmed that my Kaltura link works in a private browser.
+One verified AAPL run used **15,405 recorded observations and 728 completed candles**, covering November 10–16, 2026. With SMA(3)/SMA(8), one unit per trade, $1 fees, and 5 basis points of slippage, it produced **94 fills**, **$94 in fees**, and a final equity of **$9,895.51**. The result was a **$104.49 loss**, or about **−1.04%**, with no open position at the end. The exact settings and receipt cutoff are saved in the [run evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/evidence/part-4.2/run-proof.json).
+
+That result shows how the strategy and execution assumptions behaved on this recorded sample. It does not show that the strategy will work on a different period or predict future returns. A positive result was not the goal; I wanted the calculations and trade history to be explainable.
+
+## Verification
+
+I reviewed the new code in VS Code and tried the Part 4.2 interface in the browser. After reviewing both, I approved committing and publishing this version on November 16, 2026.
+
+Codex ran **27 backend tests, 8 frontend unit tests, and 5 browser tests**. The backend checks compare the batch and incremental SMAs with pandas, verify crossover timing, exclude unfinished candles, and check that future receipts do not rewrite earlier decisions. Other tests cover rejected orders, fees, late revisions, pending orders at the end of a backtest, and persistence without duplicate fills after restart.
+
+One accounting check uses $1,000 starting cash, two units, a $1 fee per side, and 10 basis points of slippage. Buying from a $100 quote leaves $798.80 cash. A $110 mark produces $18.80 unrealized profit. Selling from a $110 quote leaves $1,017.58 cash and $17.58 realized profit. The automated test checks those amounts directly.
+
+The browser tests cover creating a backtest, showing trades and account results, retaining the result after refresh, invalid settings, empty Yahoo history, feed outage, paper-account controls, and a narrow screen layout. An early refresh assertion failed because it compared two different text formats; the displayed amounts were unchanged. The assertion was corrected to compare rendered text consistently, and the browser suite passed.
+
+I added a GitHub Actions workflow to run the backend tests, frontend tests/build, and browser tests on pushes and pull requests. The browser tests use a temporary database and disable Yahoo, keeping them repeatable and separate from the live-provider evidence. I have approved publishing this version. The remote Actions result will be added after the push is verified.
 
 ## Remaining limitations
 
-The candles are built from sampled Yahoo quotes, so they are not official exchange OHLCV bars. Equity volume comes from changes in the reported cumulative volume and can span missed intervals. Missing values and counter resets are treated as unknown. BTC-USD volume is left unknown because its counter behavior has not been validated.
+These candles come from sampled quotes, not a complete exchange trade tape. Missing minutes remain gaps. The execution model does not reproduce liquidity, spread, partial fills, taxes, or market impact. Paper accounts can close candles on a clock tick, while a historical backtest advances its clock at recorded receipts; a sparse feed can therefore change decision timing.
 
-The live chart displays up to 500 stored candles, and replay loads up to the latest 10,000 revisions per instrument. Earlier records remain in SQLite. This part focuses on collecting, displaying, and replaying market data; trading and the later assignment features are not implemented yet.
+A backtest uses at most the latest 50,000 receipts, with any truncation labeled. Charts show up to 500 points, while saved orders and fills remain available. Stopping a paper account freezes its state without forcing a sale. The AI decision and audio features belong to Part 4.3 and are not included yet.
 
 ## Repository and demo
 
-- **GitHub:** [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4)
-- **Application commit:** [`b8f7845`](https://github.com/treyfoerster41-creator/IST-402-Project-4/commit/b8f78450598fa012bca6b7da37510712285dd0a1). This identifies the reviewed application; later commits update the documentation.
-- **My demo video:** [IST 402 - Assignment 4.1 Demo](https://psu.mediaspace.kaltura.com/media/t/1_4ntm2z5s), 1 minute 25 seconds. I verified access in a private browser.
+- **GitHub repository:** [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4)
+- **Part 4.2 application commit:** publication in progress on `codex/assignment4-part2`; the exact commit will be added after verification.
+- **Part 4.2 demo video:** pending my new recording and accessible link. The Part 4.1 video does not demonstrate these new features.
 
-The repository was also successfully cloned without signing in. I am submitting this report to Canvas, with the source code and supporting files kept in GitHub.
+I will submit only this report to Canvas once the commit and demo link are added. The source code stays in GitHub.
 
 ## Supporting documents
 
-- [README and startup instructions](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/README.md)
-- [Design notes, data flow, and SQLite schema](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/docs/design.md)
-- [Test results and live evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/evidence/evidence-log.md)
-- [Project agent instructions](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/AGENTS.md)
-- [AI-use disclosure](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part1/AI-USE.md)
+- [README and startup instructions](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/README.md)
+- [Strategy, accounting, and SQLite design](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/docs/strategy-design.md)
+- [Part 4.2 verification evidence](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/evidence/part-4.2/evidence-log.md)
+- [GitHub Actions workflow](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/.github/workflows/checks.yml)
+- [Agent instructions](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/AGENTS.md)
+- [AI-use disclosure](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/AI-USE.md)
+- [Archived Part 4.1 report](https://github.com/treyfoerster41-creator/IST-402-Project-4/blob/codex/assignment4-part2/docs/assignment-4-part-1-report-archive.md)
