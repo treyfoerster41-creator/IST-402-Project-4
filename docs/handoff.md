@@ -10,6 +10,6 @@ Verification: 27 backend tests, 8 frontend unit tests, 5 browser tests and produ
 
 Remaining:
 1. DONE: I personally reviewed the new code in VS Code and accepted the Part 4.2 browser behavior on November 16, 2026. I authorized committing, pushing and verification.
-2. Commit/push the reviewed Part 4.2 branch, verify the GitHub Actions run and record its URL/result. Add the actual application commit to report.md.
-3. Student records one Part 4.2 demo and supplies its accessible link. Follow docs/demo-checklist.md. The old Part 4.1 video is archived, not reused.
-4. Upload only report.md to Canvas once the commit/video fields are filled. Do not claim submission until the student confirms it.
+2. DONE: The reviewed application is published at `5cb41d9452b448a7f32953a6895d838bdc555afa` on `codex/assignment4-part2`. [GitHub Actions](https://github.com/treyfoerster41-creator/IST-402-Project-4/actions/runs/43899746943) passed from a clean checkout, and an unauthenticated clone succeeded. The application commit and CI result are in report.md and evidence/part-4.2/ci-verification.json.
+3. I still need to record one Part 4.2 demo and supply its accessible link. Follow docs/demo-checklist.md. The old Part 4.1 video is archived, not reused.
+4. I will upload only report.md to Canvas once the video link is added. Canvas submission is still pending.

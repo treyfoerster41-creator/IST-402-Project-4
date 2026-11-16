@@ -25,11 +25,11 @@ I used Codex for the technical checks below and reviewed the new code and applic
 | Paper account with real source | Warm history without backdated trades, process new receipts | Created AAPL account through the browser at 10:27:39. Reopening retained $10,000 cash, zero position and zero fills; frozen-candle count advanced to 733 and the mark updated. [Screenshot](paper-account.png). No live crossover fill was claimed at this checkpoint. |
 | Persistence | Same account/run on refresh; no duplicate fill on repeated processing | Browser refresh/reopening retained saved state; backend test reopens SQLite and repeats the worker pass with identical ledger/state. |
 | Unavailable feed / empty history | Useful failure message and offline practice remains usable | Browser harness verified deliberate outage, empty replay, empty real-history error and successful practice backtest. These are controlled tests, not proof of every provider outage. |
-| Remote CI | Workflow runs on push and reports all checks | Workflow is prepared locally. I approved publication after reviewing the new code and browser interface; the first remote run is pending the push. |
+| Remote CI | Workflow runs on push and reports all checks | Passed on push for application commit `5cb41d9452b448a7f32953a6895d838bdc555afa`. The [Actions run](https://github.com/treyfoerster41-creator/IST-402-Project-4/actions/runs/43899746943) completed successfully after installing locked dependencies and running backend, frontend/build, and browser checks. See [verification record](ci-verification.json). |
 
 ## Submission status
 
-On November 16, 2026, I confirmed that I reviewed the Part 4.2 code in VS Code and the application in the browser, accepted both, and authorized committing, pushing, and verification. Publication/remote Actions verification is in progress. I still need to supply my new Part 4.2 demo link and upload the final report to Canvas. I am keeping the Part 4.1 video and report as earlier evidence.
+On November 16, 2026, I confirmed that I reviewed the Part 4.2 code in VS Code and the application in the browser, accepted both, and authorized committing, pushing, and verification. The reviewed application was committed as `5cb41d9452b448a7f32953a6895d838bdc555afa` and pushed to `codex/assignment4-part2`. The remote Actions run passed, and Codex verified an unauthenticated clone of that branch with a clean working tree. I am using the same repository as Part 4.1. I still need to supply my new Part 4.2 demo link and upload the final report to Canvas. I am keeping the Part 4.1 video and report as earlier evidence.
 
 ## What the evidence establishes
 

@@ -40,7 +40,7 @@ One accounting check uses $1,000 starting cash, two units, a $1 fee per side, an
 
 The browser tests cover creating a backtest, showing trades and account results, retaining the result after refresh, invalid settings, empty Yahoo history, feed outage, paper-account controls, and a narrow screen layout. An early refresh assertion failed because it compared two different text formats; the displayed amounts were unchanged. The assertion was corrected to compare rendered text consistently, and the browser suite passed.
 
-I added a GitHub Actions workflow to run the backend tests, frontend tests/build, and browser tests on pushes and pull requests. The browser tests use a temporary database and disable Yahoo, keeping them repeatable and separate from the live-provider evidence. I have approved publishing this version. The remote Actions result will be added after the push is verified.
+I added a GitHub Actions workflow to run the backend tests, frontend tests/build, and browser tests on pushes and pull requests. The browser tests use a temporary database and disable Yahoo, keeping them repeatable and separate from the live-provider evidence. After I approved the code and browser interface, the Part 4.2 branch was pushed to GitHub. The [GitHub Actions run](https://github.com/treyfoerster41-creator/IST-402-Project-4/actions/runs/43899746943) passed all of these checks from a clean checkout on November 16, 2026. Codex also verified that the branch could be cloned without signing in.
 
 ## Remaining limitations
 
@@ -51,10 +51,10 @@ A backtest uses at most the latest 50,000 receipts, with any truncation labeled.
 ## Repository and demo
 
 - **GitHub repository:** [IST-402-Project-4](https://github.com/treyfoerster41-creator/IST-402-Project-4)
-- **Part 4.2 application commit:** publication in progress on `codex/assignment4-part2`; the exact commit will be added after verification.
+- **Part 4.2 application commit:** [`5cb41d9452b448a7f32953a6895d838bdc555afa`](https://github.com/treyfoerster41-creator/IST-402-Project-4/commit/5cb41d9452b448a7f32953a6895d838bdc555afa) on `codex/assignment4-part2`.
 - **Part 4.2 demo video:** pending my new recording and accessible link. The Part 4.1 video does not demonstrate these new features.
 
-I will submit only this report to Canvas once the commit and demo link are added. The source code stays in GitHub.
+I will submit only this report to Canvas once my new demo link is added. The source code stays in GitHub.
 
 ## Supporting documents
 
